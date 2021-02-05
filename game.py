@@ -7,7 +7,7 @@ import math
 
 
 # The Awesome Bus Game.
-class theAwesomBusGame:
+class TheAwesomBusGame:
     def __init__(self):
         # Initialising the game.
         pygame.init()
@@ -27,6 +27,20 @@ class theAwesomBusGame:
         self.screen = pygame.display.set_mode(self.screendimensions)
         self.screen.blit(self.theawesomebus, (0, 0))
 
+    # Checks if the bus is inside the frame or not. If not then magically teleports it inside.
+    def check_bus_position(self):
+        # Checking X axis.
+        if self.busposition[0] < 0:
+            self.busposition[0] = 0
+        elif self.busposition[0] > self.screendimensions[0]:
+            self.busposition[0] = self.screendimensions[0]
+
+        # Checking Y axis.
+        if self.busposition[1] < 0:
+            self.busposition[1] = 0
+        elif self.busposition[1] > self.screendimensions[1]:
+            self.busposition[1] = self.screendimensions[1]
+
     # Turning the bus right.
     def rotate_right(self):
         if self.busposition[2] == 360 or self.busposition[2] == -360:
@@ -41,15 +55,15 @@ class theAwesomBusGame:
 
     # Moving the bus forward.
     def move_forward(self):
-        if 0 <= self.busposition[0] <= self.screendimensions[0] and 0 <= self.busposition[1] <= self.screendimensions[1]:
-            self.busposition[0] += math.cos(math.radians(self.busposition[2])) * self.busvelocity
-            self.busposition[1] -= math.sin(math.radians(self.busposition[2])) * self.busvelocity
+        self.busposition[0] += math.cos(math.radians(self.busposition[2])) * self.busvelocity
+        self.busposition[1] -= math.sin(math.radians(self.busposition[2])) * self.busvelocity
+        self.check_bus_position()
 
     # Moving the bus backward.
     def move_backward(self):
-        if 0 <= self.busposition[0] <= self.screendimensions[0] and 0 <= self.busposition[1] <= self.screendimensions[1]:
-            self.busposition[0] -= math.cos(math.radians(self.busposition[2])) * self.busvelocity
-            self.busposition[1] += math.sin(math.radians(self.busposition[2])) * self.busvelocity
+        self.busposition[0] -= math.cos(math.radians(self.busposition[2])) * self.busvelocity
+        self.busposition[1] += math.sin(math.radians(self.busposition[2])) * self.busvelocity
+        self.check_bus_position()
 
     # Updating the frame after the changes.
     def update_frame(self):

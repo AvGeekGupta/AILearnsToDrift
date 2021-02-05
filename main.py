@@ -9,7 +9,7 @@ import game
 if __name__ == '__main__':
     # Function start.
     # Instance of the game.
-    theGame = game.theAwesomBusGame()
+    theGame = game.TheAwesomBusGame()
     # Running the game.
     theGame.gameplay()
     # Function end.
